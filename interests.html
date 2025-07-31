@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Interests | Parvati's World</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="interests-page">
+  <div id="particles-js"></div>
+  <div class="floating-hearts"></div>
+
+  <nav class="navbar glass">
+    <div class="nav-container">
+      <h1 class="logo pulse">Parvati Patil</h1>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
+        <li><a href="interests.html" class="active"><i class="fas fa-heart"></i> Interests</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="interests-container">
+    <!-- Daily Tracker Section -->
+    <section class="tracker-section glass">
+      <div class="tracker-header">
+        <h2><i class="fas fa-calendar-day"></i> My Daily Tracker</h2>
+        <p>Keep track of my routines, watchlist, and inspirations</p>
+      </div>
+      
+      <div class="tracker-grid">
+        <!-- To-Do List -->
+        <div class="tracker-card todo-card">
+          <h3><i class="fas fa-tasks"></i> Today's To-Dos</h3>
+          <div class="todo-form">
+            <input type="text" id="todo-input" placeholder="Add a new task...">
+            <button id="add-todo"><i class="fas fa-plus"></i></button>
+          </div>
+          <ul id="todo-list">
+            <!-- Tasks will be added here dynamically -->
+          </ul>
+          <div class="progress-container">
+            <div class="progress-bar" id="todo-progress"></div>
+            <span id="progress-text">0% Complete</span>
+          </div>
+        </div>
+        
+        <!-- Wellness Tracker -->
+        <div class="tracker-card wellness-card">
+          <h3><i class="fas fa-heartbeat"></i> Wellness Check</h3>
+          <div class="wellness-items">
+            <div class="wellness-item">
+              <label for="water">Water Intake (glasses)</label>
+              <div class="counter">
+                <button class="counter-btn minus" data-target="water"><i class="fas fa-minus"></i></button>
+                <span id="water-count">0</span>
+                <button class="counter-btn plus" data-target="water"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+            <div class="wellness-item">
+              <label for="exercise">Exercise (minutes)</label>
+              <div class="counter">
+                <button class="counter-btn minus" data-target="exercise"><i class="fas fa-minus"></i></button>
+                <span id="exercise-count">0</span>
+                <button class="counter-btn plus" data-target="exercise"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+            <div class="wellness-item">
+              <label for="meditation">Meditation (minutes)</label>
+              <div class="counter">
+                <button class="counter-btn minus" data-target="meditation"><i class="fas fa-minus"></i></button>
+                <span id="meditation-count">0</span>
+                <button class="counter-btn plus" data-target="meditation"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="wellness-quote">
+            <p>"Self-care is how you take your power back."</p>
+          </div>
+        </div>
+        
+        <!-- Entertainment Tracker -->
+        <div class="tracker-card entertainment-card">
+          <h3><i class="fas fa-film"></i> Entertainment Log</h3>
+          <div class="entertainment-tabs">
+            <button class="tab-btn active" data-tab="movies">Movies</button>
+            <button class="tab-btn" data-tab="series">Web Series</button>
+            <button class="tab-btn" data-tab="reels">Saved Reels</button>
+          </div>
+          
+          <div class="tab-content active" id="movies-tab">
+            <div class="add-item-form">
+              <input type="text" id="movie-input" placeholder="Add movie you watched">
+              <button id="add-movie"><i class="fas fa-plus"></i></button>
+            </div>
+            <ul class="entertainment-list" id="movies-list"></ul>
+          </div>
+          
+          <div class="tab-content" id="series-tab">
+            <div class="add-item-form">
+              <input type="text" id="series-input" placeholder="Add series episode you watched">
+              <button id="add-series"><i class="fas fa-plus"></i></button>
+            </div>
+            <ul class="entertainment-list" id="series-list"></ul>
+          </div>
+          
+          <div class="tab-content" id="reels-tab">
+            <div class="add-item-form">
+              <input type="text" id="reel-input" placeholder="Paste reel link">
+              <button id="add-reel"><i class="fas fa-plus"></i></button>
+            </div>
+            <div class="reels-grid" id="reels-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Bollywood Favorites Section -->
+    <section class="bollywood-section glass">
+      <div class="section-header">
+        <h2><i class="fas fa-bolt"></i> Bollywood Obsession</h2>
+        <p>My all-time favorites and recent watches</p>
+      </div>
+      
+      <div class="bollywood-grid">
+        <div class="bollywood-card">
+          <div class="bollywood-poster" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYH7vQtgmHki-QBmixYK1emUvggOfymn90nQ&s');">
+            <div class="rating-badge">9.5/10</div>
+          </div>
+          <div class="bollywood-info">
+            <h4>Dilwale Dulhania Le Jayenge</h4>
+            <p class="year">1995</p>
+            <p class="review">The ultimate romance that defines true love for me</p>
+            <div class="song-link">
+              <i class="fas fa-music"></i>
+              <a href="#" class="spotify-link">Tujhe Dekha Toh - Spotify</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bollywood-card">
+          <div class="bollywood-poster" style="background-image: url('https://images.herzindagi.info/image/2023/Jun/10-Years-Of-YJHD.jpg');">
+            <div class="rating-badge">9/10</div>
+          </div>
+          <div class="bollywood-info">
+            <h4>Yeh Jawaani Hai Deewani</h4>
+            <p class="year">2013</p>
+            <p class="review">Wanderlust, friendship and love - perfect combo!</p>
+            <div class="song-link">
+              <i class="fas fa-music"></i>
+              <a href="#" class="spotify-link">Badtameez Dil - Spotify</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bollywood-card">
+          <div class="bollywood-poster" style="background-image: url('https://ilovebollywoodmovies.wordpress.com/wp-content/uploads/2013/04/aashiqui2.jpg');">
+            <div class="rating-badge">8.5/10</div>
+          </div>
+          <div class="bollywood-info">
+            <h4>Aashiqui 2</h4>
+            <p class="year">2013</p>
+            <p class="review">Soulful music that touches the heart</p>
+            <div class="song-link">
+              <i class="fas fa-music"></i>
+              <a href="#" class="spotify-link">Tum Hi Ho - Spotify</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="watch-next">
+        <h3><i class="fas fa-list"></i> My Watch Next List</h3>
+        <div class="watch-next-items">
+          <div class="watch-next-item">
+            <input type="checkbox" id="watch1">
+            <label for="watch1">Rockstar (2011)</label>
+          </div>
+          <div class="watch-next-item">
+            <input type="checkbox" id="watch2">
+            <label for="watch2">Jab We Met (2007)</label>
+          </div>
+          <div class="watch-next-item">
+            <input type="checkbox" id="watch3">
+            <label for="watch3">Barfi! (2012)</label>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Web Series Section -->
+    <section class="series-section glass">
+      <div class="section-header">
+        <h2><i class="fas fa-tv"></i> Web Series Diary</h2>
+        <p>Tracking my binge-watching adventures</p>
+      </div>
+      
+      <div class="series-progress">
+        <div class="series-item">
+          <div class="series-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg');"></div>
+          <div class="series-details">
+            <h3>Friends</h3>
+            <div class="progress-container">
+              <div class="progress-text">Season 5, Episode 14</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 65%;"></div>
+              </div>
+              <div class="progress-stats">65% Complete</div>
+            </div>
+            <div class="series-actions">
+              <button class="action-btn watched"><i class="fas fa-check"></i> Watched</button>
+              <button class="action-btn favorite"><i class="fas fa-heart"></i> Favorite</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="series-item">
+          <div class="series-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNjg1MDQ5MjQ2N15BMl5BanBnXkFtZTYwNjI5NjA3._V1_.jpg');"></div>
+          <div class="series-details">
+            <h3>How I Met Your Mother</h3>
+            <div class="progress-container">
+              <div class="progress-text">Season 3, Episode 9</div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 42%;"></div>
+              </div>
+              <div class="progress-stats">42% Complete</div>
+            </div>
+            <div class="series-actions">
+              <button class="action-btn watched"><i class="fas fa-check"></i> Watched</button>
+              <button class="action-btn favorite"><i class="fas fa-heart"></i> Favorite</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="series-stats">
+        <div class="stat-card">
+          <div class="stat-value">127</div>
+          <div class="stat-label">Episodes Watched</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">14</div>
+          <div class="stat-label">Series Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Currently Watching</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Inspiration Board -->
+    <section class="inspiration-section glass">
+      <div class="section-header">
+        <h2><i class="fas fa-lightbulb"></i> My Inspiration Board</h2>
+        <p>Saved reels, quotes, and aesthetic moments</p>
+      </div>
+      
+      <div class="inspiration-grid">
+        <div class="inspiration-item">
+          <div class="inspiration-image" style="background-image: url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');">
+            <div class="save-btn"><i class="fas fa-bookmark"></i></div>
+          </div>
+          <div class="inspiration-caption">Sunset aesthetic for golden hour photography</div>
+        </div>
+        
+        <div class="inspiration-item">
+          <div class="inspiration-image" style="background-image: url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80');">
+            <div class="save-btn"><i class="fas fa-bookmark"></i></div>
+          </div>
+          <div class="inspiration-caption">Grocery shopping aesthetic ideas</div>
+        </div>
+        
+        <div class="inspiration-item">
+          <div class="inspiration-image" style="background-image: url('https://images.unsplash.com/photo-1556910638-90a2afff06a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80');">
+            <div class="save-btn"><i class="fas fa-bookmark"></i></div>
+          </div>
+          <div class="inspiration-caption">Kitchen organization goals</div>
+        </div>
+        
+        <div class="inspiration-item">
+          <div class="inspiration-image" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80');">
+            <div class="save-btn"><i class="fas fa-bookmark"></i></div>
+          </div>
+          <div class="inspiration-caption">Travel photography inspiration</div>
+        </div>
+      </div>
+      
+      <div class="add-inspiration">
+        <button id="add-inspiration-btn"><i class="fas fa-plus-circle"></i> Add New Inspiration</button>
+        <div class="inspiration-form hidden">
+          <input type="text" placeholder="Enter inspiration URL">
+          <textarea placeholder="Add your caption..."></textarea>
+          <div class="form-actions">
+            <button class="cancel-btn">Cancel</button>
+            <button class="save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="glass">
+    <!-- <p>Made with <i class="fas fa-heart"></i> by [Your Name] for Parvati</p> -->
+    <p class="copyright">© 2023 Parvati's World. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="script.js"></script>
+  <script src="interests.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Private Gallery | Parvati's World</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="gallery-page">
+  <div id="particles-js"></div>
+  <div class="floating-hearts"></div>
+
+  <!-- Password Protection Modal -->
+  <div class="password-modal glass">
+    <div class="password-box">
+      <h2><i class="fas fa-lock"></i> Private Gallery</h2>
+      <p>Enter your password to view memories</p>
+      <input type="password" id="gallery-password" placeholder="Your secret password">
+      <button id="unlock-gallery">Unlock Gallery</button>
+      <div class="password-actions">
+        <button id="set-password-btn">Set New Password</button>
+      </div>
+      <p id="password-error" class="error-message"></p>
+    </div>
+  </div>
+
+  <!-- Set Password Modal -->
+  <div class="set-password-modal glass hidden">
+    <div class="password-box">
+      <h2><i class="fas fa-key"></i> Set Gallery Password</h2>
+      <input type="password" id="new-password" placeholder="Create new password">
+      <input type="password" id="confirm-password" placeholder="Confirm password">
+      <button id="save-password">Save Password</button>
+      <button id="cancel-password">Cancel</button>
+      <p id="set-password-error" class="error-message"></p>
+    </div>
+  </div>
+
+  <!-- Main Content (hidden until unlocked) -->
+  <div id="gallery-content" class="hidden">
+    <nav class="navbar glass">
+      <div class="nav-container">
+        <h1 class="logo pulse">Parvati's Gallery</h1>
+        <div class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
+          <li><a href="interests.html"><i class="fas fa-heart"></i> Interests</a></li>
+          <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="gallery-container">
+      <div class="gallery-header glass">
+        <h2 class="animate__animated animate__fadeInDown">My <span class="highlight">Precious</span> Memories</h2>
+        <p class="subtitle">Captured moments from my journey</p>
+        <button id="add-photos-btn" class="gallery-action-btn">
+          <i class="fas fa-plus"></i> Add Photos
+        </button>
+        <button id="change-password-btn" class="gallery-action-btn">
+          <i class="fas fa-key"></i> Change Password
+        </button>
+      </div>
+
+      <!-- Add Photos Modal -->
+      <div class="add-photos-modal glass hidden">
+        <div class="modal-content">
+          <h3><i class="fas fa-cloud-upload-alt"></i> Add New Photos</h3>
+          <div class="upload-options">
+            <div class="upload-option">
+              <input type="file" id="photo-upload" multiple accept="image/*" style="display: none;">
+              <label for="photo-upload" class="upload-btn">
+                <i class="fas fa-folder-open"></i>
+                <span>Select from device</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="album-selection">
+            <h4>Select Album:</h4>
+            <select id="album-select">
+              <option value="family">Family</option>
+              <option value="childhood">Childhood</option>
+              <option value="fashion">Fashion & Outfits</option>
+              <option value="travel">Travel Adventures</option>
+              <option value="friends">Friends & Fun</option>
+              <option value="selfies">Selfies & Portraits</option>
+              <option value="screenshots">Screenshots</option>
+              <option value="new">Create New Album</option>
+            </select>
+            <input type="text" id="new-album-name" placeholder="New album name" class="hidden">
+          </div>
+          
+          <div class="modal-actions">
+            <button id="cancel-upload">Cancel</button>
+            <button id="confirm-upload">Upload Photos</button>
+          </div>
+          <div id="upload-status"></div>
+        </div>
+      </div>
+
+      <!-- Albums Grid -->
+      <section class="albums-grid">
+        <div class="album-card" data-album="family">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1575505586569-646b2ca898fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Family Moments</h3>
+            <p>24 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="family">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-card" data-album="childhood">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1605980776566-0486c3ac7617?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1575425186775-b8de9a427e67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1605980776566-0486c3ac7617?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Childhood Memories</h3>
+            <p>18 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="childhood">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-card" data-album="fashion">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Fashion & Outfits</h3>
+            <p>42 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="fashion">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-card" data-album="travel">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1685&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1685&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Travel Adventures</h3>
+            <p>36 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="travel">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-card" data-album="friends">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1544168195-11d2dd4d40e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1736&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1544168195-11d2dd4d40e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Friends & Fun</h3>
+            <p>29 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="friends">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-card" data-album="selfies">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Selfies & Portraits</h3>
+            <p>57 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="selfies">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="album-card" data-album="screenshots">
+          <div class="album-cover">
+            <div class="album-images">
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1734&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');"></div>
+              <div class="album-image" style="background-image: url('https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1734&q=80');"></div>
+            </div>
+          </div>
+          <div class="album-info">
+            <h3>Screenshots</h3>
+            <p>128 photos</p>
+            <div class="album-actions">
+              <button class="view-album" data-album="screenshots">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Album View Modal -->
+      <div class="album-view-modal glass hidden">
+        <div class="modal-header">
+          <h3 id="album-view-title">Album</h3>
+          <button id="close-album-view"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="album-photos" id="lightgallery">
+          <!-- Photos will be loaded here dynamically -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="glass">
+    <!-- <p>Made with <i class="fas fa-heart"></i> by [Your Name] for Parvati</p> -->
+    <p class="copyright">© 2023 Parvati's World. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-thumbnail/2.7.1/lg-thumbnail.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lg-fullscreen/2.7.1/lg-fullscreen.min.js"></script>
+  <script src="script.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

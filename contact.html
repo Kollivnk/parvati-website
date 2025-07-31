@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Parvati | Let's Connect!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="contact-page">
+  <div id="particles-js"></div>
+  <div class="floating-hearts"></div>
+
+  <nav class="navbar glass">
+    <div class="nav-container">
+      <h1 class="logo pulse">Parvati Patil</h1>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-user"></i> About</a></li>
+        <li><a href="interests.html"><i class="fas fa-heart"></i> Interests</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+        <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="contact-container">
+    <section class="contact-hero glass">
+      <div class="contact-header animate__animated animate__fadeInDown">
+        <h2>Let's <span class="highlight">Connect</span> <i class="fas fa-heart"></i></h2>
+        <p class="subtitle">Send me a message, ask me anything, or just say hello!</p>
+      </div>
+      
+      <div class="contact-options">
+        <!-- Fun Message Bottle -->
+        <div class="contact-option message-bottle animate__animated animate__fadeInLeft">
+          <div class="bottle-container">
+            <div class="bottle">
+              <div class="bottle-neck"></div>
+              <div class="bottle-body">
+                <div class="message-paper">
+                  <textarea id="message-text" placeholder="Write your message here..."></textarea>
+                </div>
+                <div class="water"></div>
+              </div>
+            </div>
+            <button id="send-bottle" class="bottle-btn">
+              <i class="fas fa-paper-plane"></i> Send Message in a Bottle
+            </button>
+          </div>
+        </div>
+        
+        <!-- Traditional Contact Form -->
+        <div class="contact-option contact-form animate__animated animate__fadeInRight">
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="name"><i class="fas fa-user"></i> Your Name</label>
+              <input type="text" id="name" required>
+              <div class="icon-animation">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope"></i> Your Email</label>
+              <input type="email" id="email" required>
+              <div class="icon-animation">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject"><i class="fas fa-tag"></i> Subject</label>
+              <select id="subject">
+                <option value="hello">Just saying hello!</option>
+                <option value="question">I have a question</option>
+                <option value="collab">Let's collaborate</option>
+                <option value="feedback">Feedback</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message"><i class="fas fa-comment-dots"></i> Your Message</label>
+              <textarea id="message" required></textarea>
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Fun Interactive Elements -->
+    <section class="fun-elements glass">
+      <div class="mood-selector">
+        <h3>How are you feeling today?</h3>
+        <div class="moods">
+          <div class="mood-option" data-mood="happy">
+            <i class="fas fa-laugh-beam"></i>
+            <span>Happy</span>
+          </div>
+          <div class="mood-option" data-mood="excited">
+            <i class="fas fa-grin-stars"></i>
+            <span>Excited</span>
+          </div>
+          <div class="mood-option" data-mood="love">
+            <i class="fas fa-heart"></i>
+            <span>Loving</span>
+          </div>
+          <div class="mood-option" data-mood="silly">
+            <i class="fas fa-grin-tongue-wink"></i>
+            <span>Silly</span>
+          </div>
+          <div class="mood-option" data-mood="chill">
+            <i class="fas fa-couch"></i>
+            <span>Chill</span>
+          </div>
+        </div>
+        <div id="mood-response" class="hidden">
+          <p></p>
+        </div>
+      </div>
+      
+      <div class="contact-quiz">
+        <h3>Quick Quiz: Which Bollywood character am I today?</h3>
+        <div class="quiz-options">
+          <button class="quiz-option" data-character="naina">
+            <img src="https://im.idiva.com/content/2025/Jan/2_6777bfba41918.jpg?w=900&h=675&cc=1" alt="Naina">
+            <span>Naina (YJHD)</span>
+          </button>
+          <button class="quiz-option" data-character="rani">
+            <img src="https://i.pinimg.com/564x/c8/17/4d/c8174d6b155241612f1616063c5d4d07.jpg" alt="Rani">
+            <span>Rani (Queen)</span>
+          </button>
+          <button class="quiz-option" data-character="geet">
+            <img src="https://i.pinimg.com/736x/92/09/2d/92092deec5ffb5cbe29b42c10751b2e4.jpg" alt="Geet">
+            <span>Geet (Jab We Met)</span>
+          </button>
+        </div>
+        <div id="quiz-result" class="hidden">
+          <div class="result-content"></div>
+          <button id="try-again">Try Again!</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Social Media Connections -->
+    <section class="social-connect glass">
+      <h3>Find Me On</h3>
+      <div class="social-grid">
+        <a href="#" class="social-card instagram">
+          <i class="fab fa-instagram"></i>
+          <span>@parvatipatil</span>
+          <div class="social-hover">
+            <p>See my aesthetic posts and reels</p>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="#" class="social-card spotify">
+          <i class="fab fa-spotify"></i>
+          <span>Parvati's Playlists</span>
+          <div class="social-hover">
+            <p>Check out my music taste</p>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="#" class="social-card goodreads">
+          <i class="fab fa-goodreads"></i>
+          <span>Book Reviews</span>
+          <div class="social-hover">
+            <p>See what I'm reading</p>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+        
+        <a href="#" class="social-card letterboxd">
+          <i class="fas fa-film"></i>
+          <span>Movie Diary</span>
+          <div class="social-hover">
+            <p>My film ratings & reviews</p>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+      
+      <div class="qr-code">
+        <div class="qr-container">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://parvatisworld.com" alt="QR Code">
+          <p>Scan to save my contact!</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Fun Contact Facts -->
+    <section class="contact-facts glass">
+      <h3>Fun Contact Facts About Me</h3>
+      <div class="facts-carousel">
+        <div class="fact-card">
+          <i class="fas fa-clock"></i>
+          <p>I usually respond within <span>24 hours</span> unless I'm lost in a book</p>
+        </div>
+        <div class="fact-card">
+          <i class="fas fa-moon"></i>
+          <p>Best time to reach me? <span>Evenings</span> with a cup of chai</p>
+        </div>
+        <div class="fact-card">
+          <i class="fas fa-heart"></i>
+          <p>I especially love messages about <span>books, travel, or Bollywood</span></p>
+        </div>
+        <div class="fact-card">
+          <i class="fas fa-bolt"></i>
+          <p>Fastest way to get my attention? <span>Send me a song recommendation</span></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="glass">
+    <!-- <p>Made with <i class="fas fa-heart"></i> by [Your Name] for Parvati</p> -->
+    <p class="copyright">© 2023 Parvati's World. All rights reserved.</p>
+  </footer>
+
+  <!-- Confetti Effect Container -->
+  <div id="confetti-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+  <script src="contact.js"></script>
+</body>
+</html>
