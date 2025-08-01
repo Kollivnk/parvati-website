@@ -941,3 +941,391 @@ document.addEventListener('DOMContentLoaded', function() {
   document.head.appendChild(style);
 });
 
+
+
+// Alarm Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Alarm Variables
+  let alarms = [];
+  let nextAlarm = null;
+  
+  // DOM Elements
+  const alarmTimeInput = document.getElementById('alarm-time');
+  const setAlarmBtn = document.getElementById('set-alarm');
+  const alarmsList = document.getElementById('alarms-list');
+  const alarmsCount = document.getElementById('alarms-count');
+  const nextAlarmDisplay = document.getElementById('next-alarm');
+  const alarmSound = document.getElementById('alarm-sound');
+  
+  // Sleep Tracker Elements
+  const startSleepBtn = document.getElementById('start-sleep');
+  const wakeUpBtn = document.getElementById('wake-up');
+  const sleepTimeDisplay = document.getElementById('sleep-time');
+  const wakeTimeDisplay = document.getElementById('wake-time');
+  const sleepDurationDisplay = document.getElementById('sleep-duration');
+  const qualityStars = document.querySelectorAll('.quality-stars i');
+  
+  // Watchlist Elements
+  const carouselTrack = document.querySelector('.carousel-track');
+  const prevBtn = document.querySelector('.nav-btn.prev');
+  const nextBtn = document.querySelector('.nav-btn.next');
+  const addToQueueBtn = document.getElementById('add-to-queue');
+  
+  // Set Alarm Functionality
+  setAlarmBtn.addEventListener('click', function() {
+    const alarmTime = alarmTimeInput.value;
+    if (!alarmTime) return;
+    
+    const [hours, minutes] = alarmTime.split(':');
+    const now = new Date();
+    const alarmDate = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      hours,
+      minutes
+    );
+    
+    // If alarm time is in the past, set it for tomorrow
+    if (alarmDate < now) {
+      alarmDate.setDate(alarmDate.getDate() + 1);
+    }
+    
+    const alarm = {
+      time: alarmDate,
+      id: Date.now(),
+      sound: document.getElementById('alarm-sound').value,
+      active: true
+    };
+    
+    alarms.push(alarm);
+    updateAlarmsList();
+    updateNextAlarm();
+    
+    // Reset input
+    alarmTimeInput.value = '07:00';
+  });
+  
+  // Update Alarms List
+  function updateAlarmsList() {
+    alarmsList.innerHTML = '';
+    alarms.forEach(alarm => {
+      const li = document.createElement('li');
+      
+      const timeStr = alarm.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      li.innerHTML = `
+        <span>${timeStr}</span>
+        <div>
+          <button class="toggle-alarm" data-id="${alarm.id}">
+            <i class="fas fa-${alarm.active ? 'bell' : 'bell-slash'}"></i>
+          </button>
+          <button class="delete-alarm" data-id="${alarm.id}">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+      
+      alarmsList.appendChild(li);
+    });
+    
+    alarmsCount.textContent = alarms.length;
+    
+    // Add event listeners to new buttons
+    document.querySelectorAll('.toggle-alarm').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = parseInt(this.getAttribute('data-id'));
+        toggleAlarm(id);
+      });
+    });
+    
+    document.querySelectorAll('.delete-alarm').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const id = parseInt(this.getAttribute('data-id'));
+        deleteAlarm(id);
+      });
+    });
+  }
+  
+  // Toggle Alarm Active State
+  function toggleAlarm(id) {
+    const alarm = alarms.find(a => a.id === id);
+    if (alarm) {
+      alarm.active = !alarm.active;
+      updateAlarmsList();
+      updateNextAlarm();
+    }
+  }
+  
+  // Delete Alarm
+  function deleteAlarm(id) {
+    alarms = alarms.filter(a => a.id !== id);
+    updateAlarmsList();
+    updateNextAlarm();
+  }
+  
+  // Update Next Alarm Display
+  function updateNextAlarm() {
+    const activeAlarms = alarms.filter(a => a.active);
+    if (activeAlarms.length === 0) {
+      nextAlarmDisplay.textContent = '--:--';
+      nextAlarm = null;
+      return;
+    }
+    
+    // Find the earliest alarm
+    nextAlarm = activeAlarms.reduce((earliest, current) => {
+      return current.time < earliest.time ? current : earliest;
+    }, activeAlarms[0]);
+    
+    nextAlarmDisplay.textContent = nextAlarm.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  
+  // Check for Alarms
+  function checkAlarms() {
+    const now = new Date();
+    
+    if (nextAlarm && nextAlarm.active && now >= nextAlarm.time) {
+      // Trigger alarm
+      alarmSound.play();
+      
+      // Show notification
+      if (Notification.permission === 'granted') {
+        new Notification('Alarm!', {
+          body: 'Your alarm is going off!',
+          icon: 'assets/favicon.ico'
+        });
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            new Notification('Alarm!', {
+              body: 'Your alarm is going off!',
+              icon: 'assets/favicon.ico'
+            });
+          }
+        });
+      }
+      
+      // Snooze or dismiss
+      const shouldSnooze = confirm('Alarm! Click OK to snooze for 5 minutes or Cancel to dismiss.');
+      alarmSound.pause();
+      alarmSound.currentTime = 0;
+      
+      if (shouldSnooze) {
+        nextAlarm.time = new Date(now.getTime() + 5 * 60000);
+        updateNextAlarm();
+      } else {
+        // Remove or deactivate alarm based on repeat setting
+        const repeatDaily = document.querySelector('.alarm-options input[type="checkbox"]').checked;
+        if (!repeatDaily) {
+          deleteAlarm(nextAlarm.id);
+        } else {
+          // Set for same time tomorrow
+          nextAlarm.time.setDate(nextAlarm.time.getDate() + 1);
+          updateNextAlarm();
+        }
+      }
+    }
+  }
+  
+  // Check alarms every second
+  setInterval(checkAlarms, 1000);
+  
+  // Sleep Tracker Functionality
+  let sleepStartTime = null;
+  let sleepEndTime = null;
+  
+  startSleepBtn.addEventListener('click', function() {
+    sleepStartTime = new Date();
+    sleepTimeDisplay.textContent = sleepStartTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    wakeTimeDisplay.textContent = '--:--';
+    sleepDurationDisplay.textContent = '0h 0m';
+    
+    // Disable start button, enable wake up button
+    startSleepBtn.disabled = true;
+    wakeUpBtn.disabled = false;
+  });
+  
+  wakeUpBtn.addEventListener('click', function() {
+    if (!sleepStartTime) return;
+    
+    sleepEndTime = new Date();
+    wakeTimeDisplay.textContent = sleepEndTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    // Calculate duration
+    const durationMs = sleepEndTime - sleepStartTime;
+    const hours = Math.floor(durationMs / (1000 * 60 * 60));
+    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+    
+    sleepDurationDisplay.textContent = `${hours}h ${minutes}m`;
+    
+    // Reset buttons
+    startSleepBtn.disabled = false;
+    wakeUpBtn.disabled = true;
+  });
+  
+  // Sleep Quality Rating
+  qualityStars.forEach(star => {
+    star.addEventListener('click', function() {
+      const rating = parseInt(this.getAttribute('data-rating'));
+      
+      // Update stars
+      qualityStars.forEach((s, index) => {
+        if (index < rating) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+      
+      // In a real app, you would save this rating along with the sleep data
+    });
+  });
+  
+  // Watchlist Carousel
+  let currentPosition = 0;
+  const itemWidth = 180 + 24; // width + gap
+  
+  prevBtn.addEventListener('click', function() {
+    if (currentPosition < 0) {
+      currentPosition += itemWidth;
+      carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+    }
+  });
+  
+  nextBtn.addEventListener('click', function() {
+    const maxPosition = -((carouselTrack.children.length - 4) * itemWidth);
+    if (currentPosition > maxPosition) {
+      currentPosition -= itemWidth;
+      carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+    }
+  });
+  
+  // Add to Queue
+  addToQueueBtn.addEventListener('click', function() {
+    const title = prompt('Enter the title you want to add to your queue:');
+    if (title) {
+      // In a real app, you would add this to your queue array and update the display
+      alert(`"${title}" has been added to your queue!`);
+    }
+  });
+  
+  // Request notification permission on page load
+  if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
+    Notification.requestPermission();
+  }
+});
+
+// Video Gallery Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle video buttons
+  const videoButtons = document.querySelectorAll('.action-btn.videos');
+  
+  videoButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const seriesId = this.getAttribute('data-series') + '-videos';
+      const videoGallery = document.getElementById(seriesId);
+      
+      // Toggle display
+      if (videoGallery.style.display === 'none') {
+        videoGallery.style.display = 'block';
+        this.innerHTML = '<i class="fas fa-video"></i> Hide Videos';
+      } else {
+        videoGallery.style.display = 'none';
+        this.innerHTML = '<i class="fas fa-video"></i> Videos';
+      }
+      
+      // Close other open galleries
+      document.querySelectorAll('.video-gallery').forEach(gallery => {
+        if (gallery.id !== seriesId && gallery.style.display === 'block') {
+          gallery.style.display = 'none';
+          const correspondingBtn = document.querySelector(`.action-btn.videos[data-series="${gallery.id.split('-')[0]}"]`);
+          if (correspondingBtn) {
+            correspondingBtn.innerHTML = '<i class="fas fa-video"></i> Videos';
+          }
+        }
+      });
+    });
+  });
+  
+  // Handle play trailer buttons
+  const playButtons = document.querySelectorAll('.play-trailer');
+  
+  playButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const series = this.getAttribute('data-series');
+      let videoSrc = '';
+      let posterSrc = '';
+      
+      // Set different trailers for different series
+      if (series === 'friends') {
+        videoSrc = 'assets/friends_trailer.mp4';
+        posterSrc = 'assets/friends_trailer_poster.jpg';
+      } else if (series === 'himym') {
+        videoSrc = 'assets/himym_trailer.mp4';
+        posterSrc = 'assets/himym_trailer_poster.jpg';
+      }
+      
+      // Create modal for trailer
+      const modal = document.createElement('div');
+      modal.className = 'video-modal';
+      modal.innerHTML = `
+        <div class="modal-video-wrapper">
+          <span class="close-modal">&times;</span>
+          <div class="modal-video-container">
+            <video controls autoplay poster="${posterSrc}">
+              <source src="${videoSrc}" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Close modal
+      const closeBtn = modal.querySelector('.close-modal');
+      closeBtn.addEventListener('click', () => {
+        document.body.removeChild(modal);
+      });
+      
+      // Close when clicking outside
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
+        }
+      });
+    });
+  });
+  
+  // Handle video clicks for fullscreen
+  document.querySelectorAll('.video-container video').forEach(video => {
+    video.addEventListener('click', function() {
+      const modal = document.createElement('div');
+      modal.className = 'video-modal';
+      modal.innerHTML = `
+        <div class="modal-video-wrapper">
+          <span class="close-modal">&times;</span>
+          <div class="modal-video-container">
+            <video controls autoplay>
+              <source src="${this.querySelector('source').src}" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Close modal
+      const closeBtn = modal.querySelector('.close-modal');
+      closeBtn.addEventListener('click', () => {
+        document.body.removeChild(modal);
+      });
+      
+      // Close when clicking outside
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
+        }
+      });
+    });
+  });
+});
