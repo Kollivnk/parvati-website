@@ -3713,3 +3713,172 @@ svg.ring-svg {
   color: var(--primary);
   transform: rotate(90deg);
 }
+/* Mobile-First Styles */
+.series-section {
+  padding: 1rem;
+}
+
+.series-item {
+  flex-direction: column;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.series-poster-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.series-poster {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+}
+
+.series-details {
+  width: 100%;
+}
+
+.series-actions {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.action-text {
+  display: inline;
+}
+
+.video-grid {
+  grid-template-columns: 1fr;
+}
+
+.video-item {
+  margin-bottom: 1.5rem;
+}
+
+.series-stats {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stat-card {
+  width: 100%;
+}
+
+/* Tablet and Desktop Styles */
+@media (min-width: 768px) {
+  .series-item {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .series-poster-container {
+    width: 200px;
+    margin-right: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  .series-poster {
+    height: 280px;
+  }
+
+  .series-details {
+    width: calc(100% - 230px);
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .series-stats {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .stat-card {
+    width: 30%;
+  }
+}
+
+/* Video Container Styles */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+  border-radius: 8px;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-caption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Play Button */
+.play-trailer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.play-trailer i {
+  font-size: 2.5rem;
+  color: white;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.series-poster:hover .play-trailer {
+  opacity: 1;
+}
+
+/* Progress Bar */
+.progress-container {
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b9d, #ff8e6e);
+  border-radius: 4px;
+}
+
+.progress-stats {
+  font-size: 0.9rem;
+  color: #ff6b9d;
+  margin-top: 0.5rem;
+}
+
