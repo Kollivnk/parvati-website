@@ -199,65 +199,128 @@
     </section>
     
     <!-- Web Series Section -->
-    <section class="series-section glass">
-      <div class="section-header">
-        <h2><i class="fas fa-tv"></i> Web Series Diary</h2>
-        <p>Tracking my binge-watching adventures</p>
+   <!-- Web Series Section -->
+<section class="series-section glass">
+  <div class="section-header">
+    <h2><i class="fas fa-tv"></i> Web Series Diary</h2>
+    <p>Tracking my binge-watching adventures</p>
+  </div>
+  
+  <div class="series-progress">
+    <!-- Friends Series -->
+    <div class="series-item">
+      <div class="series-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg');">
+        <div class="play-trailer" data-series="friends">
+          <i class="fas fa-play"></i>
+        </div>
       </div>
-      
-      <div class="series-progress">
-        <div class="series-item">
-          <div class="series-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNDVkYjU0MzctMWRmZi00NTkxLTgwZWEtOWVhYjZlYjllYmU4XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg');"></div>
-          <div class="series-details">
-            <h3>Friends</h3>
-            <div class="progress-container">
-              <div class="progress-text">Season 5, Episode 14</div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 65%;"></div>
-              </div>
-              <div class="progress-stats">65% Complete</div>
-            </div>
-            <div class="series-actions">
-              <button class="action-btn watched"><i class="fas fa-check"></i> Watched</button>
-              <button class="action-btn favorite"><i class="fas fa-heart"></i> Favorite</button>
-            </div>
+      <div class="series-details">
+        <h3>Friends</h3>
+        <div class="progress-container">
+          <!-- <div class="progress-text">Season 5, Episode 14</div> -->
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 65%;"></div>
           </div>
+          <div class="progress-stats">65% Complete</div>
+        </div>
+        <div class="series-actions">
+          <button class="action-btn watched"><i class="fas fa-check"></i> Watched</button>
+          <button class="action-btn favorite"><i class="fas fa-heart"></i> Favorite</button>
+          <button class="action-btn videos" data-series="friends"><i class="fas fa-video"></i> Videos</button>
         </div>
         
-        <div class="series-item">
-          <div class="series-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNjg1MDQ5MjQ2N15BMl5BanBnXkFtZTYwNjI5NjA3._V1_.jpg');"></div>
-          <div class="series-details">
-            <h3>How I Met Your Mother</h3>
-            <div class="progress-container">
-              <div class="progress-text">Season 3, Episode 9</div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: 42%;"></div>
+        <!-- Video Gallery (Hidden by default) -->
+        <div class="video-gallery" id="friends-videos" style="display: none;">
+          <h4>Favorite Moments</h4>
+          <div class="video-grid">
+            <div class="video-item">
+              <div class="video-container">
+                <video controls poster="assets/friends_monica_chandler_poster.jpg">
+                  <source src="assets/monica.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
               </div>
-              <div class="progress-stats">42% Complete</div>
+              <p>Monica and Chandler's Love Story</p>
             </div>
-            <div class="series-actions">
-              <button class="action-btn watched"><i class="fas fa-check"></i> Watched</button>
-              <button class="action-btn favorite"><i class="fas fa-heart"></i> Favorite</button>
+            <div class="video-item">
+              <div class="video-container">
+                <video controls poster="assets/friends_joey_food_poster.jpg">
+                  <source src="assets/joey_food.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p>Joey's Love for Food</p>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="series-stats">
-        <div class="stat-card">
-          <div class="stat-value">127</div>
-          <div class="stat-label">Episodes Watched</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">14</div>
-          <div class="stat-label">Series Completed</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">5</div>
-          <div class="stat-label">Currently Watching</div>
+    </div>
+    
+    <!-- How I Met Your Mother Series -->
+    <div class="series-item">
+      <div class="series-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BNjg1MDQ5MjQ2N15BMl5BanBnXkFtZTYwNjI5NjA3._V1_.jpg');">
+        <div class="play-trailer" data-series="himym">
+          <i class="fas fa-play"></i>
         </div>
       </div>
-    </section>
+      <div class="series-details">
+        <h3>How I Met Your Mother</h3>
+        <div class="progress-container">
+          <!-- <div class="progress-text">Season 3, Episode 9</div> -->
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 42%;"></div>
+          </div>
+          <div class="progress-stats">42% Complete</div>
+        </div>
+        <div class="series-actions">
+          <button class="action-btn watched"><i class="fas fa-check"></i> Watched</button>
+          <button class="action-btn favorite"><i class="fas fa-heart"></i> Favorite</button>
+          <button class="action-btn videos" data-series="himym"><i class="fas fa-video"></i> Videos</button>
+        </div>
+        
+        <!-- Video Gallery (Hidden by default) -->
+        <div class="video-gallery" id="himym-videos" style="display: none;">
+          <h4>Favorite Moments</h4>
+          <div class="video-grid">
+            <div class="video-item">
+              <div class="video-container">
+                <video controls poster="assets/himym_legendary_poster.jpg">
+                  <source src="assets/legendary.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p>Legendary Moments Compilation</p>
+            </div>
+            <div class="video-item">
+              <div class="video-container">
+                <video controls poster="assets/himym_ted_robin_poster.jpg">
+                  <source src="assets/ted.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p>Ted Mosby and Robin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="series-stats">
+    <div class="stat-card">
+      <div class="stat-value">127</div>
+      <div class="stat-label">Episodes Watched</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">14</div>
+      <div class="stat-label">Series Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Currently Watching</div>
+    </div>
+  </div>
+</section>
     
     <!-- Inspiration Board -->
     <section class="inspiration-section glass">
